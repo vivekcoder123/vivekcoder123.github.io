@@ -21,7 +21,7 @@
     let order_data = order_details.split('Store');
     for(let i=0;i<order_data.length;i++){
         if(order_data[i].substring(0,1) == ':'){
-            store_id = order_data[i].split('(')[0].split(': ')[1].replace(/ /g,'');
+            store_id = order_data[i].split('(')[0].split(':+')[1].replace(/ /g,'');
             store_id = store_id.substr(0,store_id.length-2);
             break;
         }
