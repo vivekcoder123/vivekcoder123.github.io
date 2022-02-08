@@ -1,4 +1,5 @@
 <script type="text/javascript">
+    
     function findGetParameter(parameterName) {
         var result = null,
             tmp = [];
@@ -9,16 +10,18 @@
         }
         return result;
     }
+    
     const idMobileNumberMappingArray = {
         '479f031e':919311164695,
         '5c22f9a4':918650524825
     };
+    
     const order_details = findGetParameter('order_details');
     let store_id = null;
     let order_data = order_details.split('Store');
     for(let i=0;i<order_data.length;i++){
         if(order_data[i].substring(0,1) == ':'){
-            store_id = order_data[i].split('(')[0].split(':+')[1].replace(/ /g,'');
+            store_id = order_data[i].split('(')[0].split(': ')[1].replace(/ /g,'');
             store_id = store_id.substr(0,store_id.length-2);
             break;
         }
