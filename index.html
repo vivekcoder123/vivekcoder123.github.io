@@ -35,7 +35,7 @@
 
     ${order_data_without_store_name}
 
-    Order Note - ${client_message}`;
+    Order Notes - ${client_message}`;
     const mobile_number = idMobileNumberMappingArray[store_id];
     window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
 </script>
