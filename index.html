@@ -24,7 +24,7 @@
         }
     }
 
-    const splitValue = `,+Store:+${store_id}++`;
+    const splitValue = `,+Store:+${store_id}`;
     const order_data_without_store_name = order_details.split(splitValue).join('');
     const client_message = findGetParameter('client_message');
     let message = `
