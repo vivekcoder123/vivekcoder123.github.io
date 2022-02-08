@@ -24,15 +24,10 @@
         }
     }
 
-    const splitValue = `,+Store:+${store_id}`;
-    const order_data_without_store_name = order_details.split(splitValue).join('');
+    const splitValue = `,+Store:+${store_id}++`;
+    const order_data_without_store_name = order_details.split(splitValue).join('').replace('+','');
     const client_message = findGetParameter('client_message');
-    let message = `
-    Hello, I'd like to place my order:
-
-    ${order_data_without_store_name}
-
-    Order Note - ${client_message}`;
+    let message = `Hello, I'd like to place my order:\n${order_data_without_store_name}\nOrder Note - ${client_message}`;
     const mobile_number = idMobileNumberMappingArray[store_id];
     window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
 </script>
