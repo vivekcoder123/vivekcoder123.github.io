@@ -10,11 +10,27 @@
         return result;
     }
     const idMobileNumberMappingArray = {
-        1:919311164695,
-        2:919311164695
+        '479f031e':919311164695,
+        '5c22f9a4':918650524825
     };
-    const message = findGetParameter('message');
-    const id = findGetParameter('id');
-    const mobile_number = idMobileNumberMappingArray[id];
+    const order_details = findGetParameter('order_details');
+    let store_id = null;
+    let order_data = order_details.split('Store');
+    for(let i=0;i<order_data.length;i++){
+        if(order_data[i].substring(0,1) == ':'){
+            store_id = order_data[i].split('(')[0].split(': ')[1].replace(/ /g,'')
+            break;
+        }
+    }
+    const splitValue = `, Store: ${store_id}  `;
+    const order_data_without_store_name = order_details.split(splitValue).join('');
+    const client_message = findGetParameter('client_message');
+    let message = `
+    Hello, I'd like to place my order:
+
+    ${order_data_without_store_name}
+
+    Order Note - ${client_message}`;
+    const mobile_number = idMobileNumberMappingArray[store_id];
     window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
 </script>
