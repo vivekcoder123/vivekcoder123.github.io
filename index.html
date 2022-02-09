@@ -1,16 +1,5 @@
 <script type="text/javascript">
-
-    var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTWcgJlwf2rT8suEsS58nc-83ZLaQL0LyRZFeBxOP7YEE7htJkDzw8M3ZzkIA-4Gc7cF8E8e_VWyyj-/pubhtml';
-    fetch(url)
-    .then(response => console.log('re',response));
-
-    var id = '1DC1RYJrTMlNzM6wLebidD1WFutvQuaK1xSqhYZnogOk';
-    var gid = '663388535';
-    var url = 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&tq&gid='+gid;
-    fetch(url)
-    .then(response => console.log('res',response));
-
-    /*function findGetParameter(parameterName) {
+    function findGetParameter(parameterName) {
         var result = null,
             tmp = [];
         var items = location.search.substr(1).split("&");
@@ -20,28 +9,35 @@
         }
         return result;
     }
-    
-    const idMobileNumberMappingArray = {
-       '479f031e':918650524825,
-       '5c22f9a4':919311164695
-    };
-    
-    const order_details = findGetParameter('order_details');
-    let store_id = null;
-    let order_data = order_details.split('Store');
-    for(let i=0;i<order_data.length;i++){
-        if(order_data[i].substring(0,1) == ':'){
-            store_id = order_data[i].split('(')[0].split(':+')[1].replace(/ /g,'');
-            store_id = store_id.substr(0,store_id.length-2);
-            break;
-        }
-    }
 
-    const splitValue = `,+Store:+${store_id}++`;
-    const order_data_without_store_name = order_details.split(splitValue).join('').replace('+','');
-    const client_message = findGetParameter('client_message');
-    let message = `Hello, I'd like to place my order:\n\n${order_data_without_store_name}\n\nOrder Note - ${client_message}`;
-    const mobile_number = idMobileNumberMappingArray[store_id];
-    window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);*/
-    
+    var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9D1kdm-izkGJvOaM1dvxCcyzqW9j2-4PG1tsNggxi5xF9F0ezt_09eSnS2B-YqKPe_A9T83-5cgpD/pub?output=csv';
+    fetch(url)
+        .then(response => response.text())
+        .then((data) => {
+            var idMobileNumberMappingArray = {};
+            var allTextLines = data.split(/\r\n|\n/);
+            var headings = allTextLines[0].split(',');
+            for (let i = 1; i < allTextLines.length; i++) {
+                const obj = allTextLines[i].split(',');
+                idMobileNumberMappingArray[obj[0]] = obj[1];
+            }
+            const order_details = findGetParameter('order_details');
+            let store_id = null;
+            let order_data = order_details.split('Store');
+            for (let i = 0; i < order_data.length; i++) {
+                if (order_data[i].substring(0, 1) == ':') {
+                    store_id = order_data[i].split('(')[0].split(':+')[1].replace(/ /g, '');
+                    store_id = store_id.substr(0, store_id.length - 2);
+                    break;
+                }
+            }
+
+            const splitValue = `,+Store:+${store_id}++`;
+            const order_data_without_store_name = order_details.split(splitValue).join('').replace('+', '');
+            const client_message = findGetParameter('client_message');
+            let message =
+                `Hello, I'd like to place my order:\n\n${order_data_without_store_name}\n\nOrder Note - ${client_message}`;
+            const mobile_number = idMobileNumberMappingArray[store_id];
+            window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
+        });
 </script>
