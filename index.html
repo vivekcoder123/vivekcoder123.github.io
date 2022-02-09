@@ -1,6 +1,16 @@
 <script type="text/javascript">
-    
-    function findGetParameter(parameterName) {
+
+    var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTWcgJlwf2rT8suEsS58nc-83ZLaQL0LyRZFeBxOP7YEE7htJkDzw8M3ZzkIA-4Gc7cF8E8e_VWyyj-/pubhtml';
+    fetch(url)
+    .then(response => console.log('re',response));
+
+    var id = '1DC1RYJrTMlNzM6wLebidD1WFutvQuaK1xSqhYZnogOk';
+    var gid = '663388535';
+    var url = 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&tq&gid='+gid;
+    fetch(url)
+    .then(response => console.log('res',response));
+
+    /*function findGetParameter(parameterName) {
         var result = null,
             tmp = [];
         var items = location.search.substr(1).split("&");
@@ -13,7 +23,7 @@
     
     const idMobileNumberMappingArray = {
        '479f031e':918650524825,
-        '5c22f9a4':919311164695
+       '5c22f9a4':919311164695
     };
     
     const order_details = findGetParameter('order_details');
@@ -32,6 +42,6 @@
     const client_message = findGetParameter('client_message');
     let message = `Hello, I'd like to place my order:\n\n${order_data_without_store_name}\n\nOrder Note - ${client_message}`;
     const mobile_number = idMobileNumberMappingArray[store_id];
-    window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
+    window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);*/
     
 </script>
