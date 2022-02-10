@@ -15,6 +15,7 @@
         .then(response => response.text())
         .then((data) => {
             var idMobileNumberMappingArray = {};
+
             var allTextLines = data.split(/\r\n|\n/);
             var headings = allTextLines[0].split(',');
             for (let i = 1; i < allTextLines.length; i++) {
@@ -36,8 +37,9 @@
             const order_data_without_store_name = order_details.split(splitValue).join('').replace('+', '');
             const client_message = findGetParameter('client_message');
             let message =
-                `Hello, I'd like to place my order:\n\n${order_data_without_store_name}\n\nOrder Note - ${client_message}`;
+                `Hello, I'd like to place my order:\n\n${order_data_without_store_name}`;
             const mobile_number = idMobileNumberMappingArray[store_id];
-            window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
+            console.log(message);
+            //window.location.href = encodeURI(`https://api.whatsapp.com/send?phone=${mobile_number}&text=${message}`);
         });
 </script>
